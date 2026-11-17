@@ -2,7 +2,7 @@
 AI-Powered web platform for vehicle maintenance tracking and troubleshooting - SWE 401 Course Project
 
 • Project title
-- AI CarCare
+- AI CarCare Advisor
   
 • Team members
 - Abdulrahman Naji
