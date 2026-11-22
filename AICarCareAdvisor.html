@@ -1,1 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI CarCare Advisor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div id="topbar">
+  <div class="brand">
+    <img src="logo.svg" alt="AI CarCare Advisor logo" class="logo">
+    <span class="brand-text"><b>AI CarCare Advisor</b><br><i>Plain answers for car problems</i></span>
+  </div>
+  <div id="nav" class="hidden">
+    <a href="#" data-page="dashboard">Dashboard</a>
+    <a href="#" data-page="vehicles">My vehicles</a>
+    <a href="#" data-page="maintenance">Maintenance</a>
+    <a href="#" data-page="troubleshoot">Troubleshoot</a>
+    <a href="#" data-page="evaluate">Evaluate a car</a>
+    <a href="#" data-page="reports">Reports</a>
+    <a href="#" data-page="account">Account</a>
+    <a href="#" data-page="admin" id="navAdmin" class="hidden">Admin</a>
+    <a href="#" data-page="inbox">Inbox</a>
+    <a href="#" id="logoutLink">Log out</a>
+  </div>
+  <div id="whoami"></div>
+</div>
+
+<div id="main">
+
+  <!-- UI-1 Login (FR-1.2) -->
+  <div id="page-login" class="page">
+    <div class="card narrow">
+      <center>
+        <img src="logo.svg" alt="" class="logo-big">
+        <h2>Log in</h2>
+        <p>Welcome back. Log in to see your cars, reminders and diagnoses.</p>
+      </center>
+      <form id="loginForm">
+        <p><b>Email address</b><br><input type="text" id="loginEmail" class="field"></p>
+        <p><b>Password</b><br><input type="password" id="loginPassword" class="field"></p>
+        <p><input type="checkbox" id="loginRemember"> Remember me</p>
+        <p><input type="submit" value="Log in" class="btn primary wide" id="loginBtn"></p>
+      </form>
+      <div id="loginMsg" class="msg"></div>
+      <hr>
+      <p><a href="#" data-page="register">Create an account</a> | <a href="#" data-page="forgot">Forgot password?</a> | <a href="#" data-page="inbox">Demo email inbox</a></p>
+    </div>
+  </div>
+
+  <!-- Register (FR-1.1) -->
+  <div id="page-register" class="page">
+    <div class="card narrow">
+      <center><h2>Create an account</h2></center>
+      <form id="registerForm">
+        <p><b>Full name</b><br><input type="text" id="regName" class="field"></p>
+        <p><b>Email address</b><br><input type="text" id="regEmail" class="field"></p>
+        <p><b>Password</b> <i class="hint">(at least 8 characters, with a letter and a number)</i><br><input type="password" id="regPassword" class="field"></p>
+        <p><b>Confirm password</b><br><input type="password" id="regConfirm" class="field"></p>
+        <p><input type="submit" value="Create account" class="btn primary wide" id="regBtn"></p>
+      </form>
+      <div id="regMsg" class="msg"></div>
+      <hr>
+      <p>Already registered? <a href="#" data-page="login">Log in</a></p>
+    </div>
+  </div>
+
+  <!-- Forgot password (FR-1.3) -->
+  <div id="page-forgot" class="page">
+    <div class="card narrow">
+      <center><h2>Reset your password</h2></center>
+      <p>Enter your email. We will send a single-use link that works for 30 minutes.</p>
+      <form id="forgotForm">
+        <p><b>Email address</b><br><input type="text" id="forgotEmail" class="field"></p>
+        <p><input type="submit" value="Send reset link" class="btn primary wide"></p>
+      </form>
+      <div id="forgotMsg" class="msg"></div>
+      <hr>
+      <p><a href="#" data-page="login">Back to log in</a> | <a href="#" data-page="inbox">Open demo email inbox</a></p>
+    </div>
+  </div>
+
+  <!-- Reset password from email link (FR-1.3) -->
+  <div id="page-reset" class="page">
+    <div class="card narrow">
+      <center><h2>Choose a new password</h2></center>
+      <form id="resetForm">
+        <p><b>New password</b><br><input type="password" id="resetPassword" class="field"></p>
+        <p><b>Confirm new password</b><br><input type="password" id="resetConfirm" class="field"></p>
+        <p><input type="submit" value="Save new password" class="btn primary wide"></p>
+      </form>
+      <div id="resetMsg" class="msg"></div>
+      <p><a href="#" data-page="login">Back to log in</a></p>
+    </div>
+  </div>
+
+  <!-- UI-2 Dashboard -->
+  <div id="page-dashboard" class="page">
+    <h2>Dashboard</h2>
+    <div class="row">
+      <b>Vehicle:</b>
+      <select id="dashVehicle" class="field inline"></select>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Vehicle summary</h3>
+        <div id="dashSummary"></div>
+      </div>
+      <div class="card">
+        <h3>Upcoming reminders</h3>
+        <div id="dashReminders"></div>
+      </div>
+      <div class="card">
+        <h3>Most recent diagnosis</h3>
+        <div id="dashDiagnosis"></div>
+      </div>
+      <div class="card">
+        <h3>Quick actions</h3>
+        <p><input type="button" value="Troubleshoot a problem" class="btn primary wide" data-goto="troubleshoot"></p>
+        <p><input type="button" value="Log a service" class="btn wide" data-goto="maintenance"></p>
+        <p><input type="button" value="Add a vehicle" class="btn wide" data-goto="vehicles"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI-3 Vehicles (FR-2.1, FR-2.2) -->
+  <div id="page-vehicles" class="page">
+    <h2>My vehicles</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Add a vehicle</h3>
+        <form id="vehicleForm">
+          <p><b>Make</b><br>
+            <input type="text" id="vMakeSearch" class="field" placeholder="Type to search makes">
+            <select id="vMake" class="field"></select></p>
+          <p id="vModelRow"><b>Model</b><br><select id="vModel" class="field"></select></p>
+          <p><input type="checkbox" id="vManual"> My model isn't listed</p>
+          <p id="vManualRow" class="hidden"><b>Type your make and model</b><br>
+            <input type="text" id="vManualMake" class="field" placeholder="Make, for example Peugeot">
+            <input type="text" id="vManualModel" class="field" placeholder="Model, for example 508 Turbo"></p>
+          <p><b>Year</b><br><select id="vYear" class="field"></select></p>
+          <p><b>VIN</b> <i class="hint">(optional, 17 characters)</i><br><input type="text" id="vVin" class="field"></p>
+          <p><b>Current mileage (km)</b><br><input type="text" id="vMileage" class="field"></p>
+          <p><b>Fuel type</b><br>
+            <input type="radio" name="vFuel" value="Petrol" checked> Petrol
+            <input type="radio" name="vFuel" value="Diesel"> Diesel
+            <input type="radio" name="vFuel" value="Hybrid"> Hybrid
+            <input type="radio" name="vFuel" value="Electric"> Electric</p>
+          <p><input type="submit" value="Save vehicle" class="btn primary" id="vSave">
+             <input type="reset" value="Cancel" class="btn"></p>
+        </form>
+        <div id="vehicleMsg" class="msg"></div>
+      </div>
+      <div class="card">
+        <h3>Your vehicles</h3>
+        <div id="vehicleList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI-6 Maintenance (FR-3.1 to FR-3.5) -->
+  <div id="page-maintenance" class="page">
+    <h2>Maintenance</h2>
+    <div class="row">
+      <b>Vehicle:</b>
+      <select id="mVehicle" class="field inline"></select>
+      <input type="button" value="Run daily reminder check now" class="btn" id="runCheckBtn">
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3 id="recordTitle">Record a service</h3>
+        <div id="staleMileage" class="msg warn hidden"></div>
+        <form id="recordForm">
+          <p><b>Service type</b><br><select id="rType" class="field"></select></p>
+          <p><b>Date</b><br><input type="date" id="rDate" class="field"></p>
+          <p><b>Odometer at service (km)</b> <i class="hint">(optional)</i><br><input type="text" id="rMileage" class="field"></p>
+          <p><b>Cost (AED)</b> <i class="hint">(optional)</i><br><input type="text" id="rCost" class="field"></p>
+          <p><b>Garage</b> <i class="hint">(optional)</i><br><input type="text" id="rGarage" class="field"></p>
+          <p><b>Notes</b><br><textarea id="rNotes" class="field" rows="3"></textarea></p>
+          <input type="hidden" id="rFromReminder" value="">
+          <p><input type="submit" value="Save record" class="btn primary" id="rSave">
+             <input type="reset" value="Clear" class="btn"></p>
+        </form>
+        <div id="recordMsg" class="msg"></div>
+      </div>
+      <div class="card">
+        <h3>Service reminders</h3>
+        <div class="tabs" id="remTabs">
+          <span class="tab active" data-tab="upcoming">Upcoming</span>
+          <span class="tab" data-tab="overdue">Past due</span>
+          <span class="tab" data-tab="completed">Completed</span>
+        </div>
+        <div id="reminderList"></div>
+        <p class="hint">Reminders appear when a service is within 500 km or 14 days of being due. Calendar sync is planned for a later version.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Maintenance history</h3>
+      <p><b>Filter by service:</b> <select id="historyFilter" class="field inline"></select></p>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <!-- UI-4 and UI-5 Troubleshoot (FR-4.1 to FR-4.7) -->
+  <div id="page-troubleshoot" class="page">
+    <h2>Troubleshoot a problem</h2>
+    <div id="tsStep1" class="card">
+      <form id="symptomForm">
+        <p><b>Which vehicle?</b><br><select id="tsVehicle" class="field"></select></p>
+        <p><b>Describe the problem in your own words</b> <i class="hint">(10 to 500 characters)</i><br>
+          <textarea id="tsText" class="field" rows="4" placeholder="For example: my car makes a grinding noise when I brake"></textarea>
+          <span id="tsCount" class="hint">0 / 500</span></p>
+        <p><b>Is a warning light on?</b> <i class="hint">(optional)</i><br><select id="tsLight" class="field"></select></p>
+        <div id="tsLightInfo" class="hint"></div>
+        <p><b>Try an example:</b><br>
+          <span class="chip">Squeaking sound when braking</span>
+          <span class="chip">Temperature gauge is on H and there is a sweet smell</span>
+          <span class="chip">Car feels slow and has less power on the motorway</span>
+          <span class="chip">Car pulls to the left while driving</span>
+          <span class="chip">Car will not start, I only hear clicking</span></p>
+        <p><input type="submit" value="Diagnose" class="btn primary" id="tsDiagnose"></p>
+      </form>
+      <div id="tsMsg" class="msg"></div>
+      <div class="safety-pane">
+        <b>Safety first.</b> If you see smoke, the brakes feel wrong or the steering is hard to control, stop the car somewhere safe before using this tool.
+      </div>
+    </div>
+    <div id="tsStep2" class="card hidden">
+      <h3>A few quick questions</h3>
+      <p class="hint">These help narrow down the cause. Choose "Not sure" if you don't know.</p>
+      <form id="questionForm">
+        <div id="tsQuestions"></div>
+        <p><input type="submit" value="Get my diagnosis" class="btn primary" id="tsAnswer">
+           <input type="button" value="Start again" class="btn" id="tsRestart"></p>
+      </form>
+      <div id="tsQMsg" class="msg"></div>
+    </div>
+    <div id="tsLoading" class="card hidden">
+      <p><b>Analysing your answers...</b></p>
+      <div class="progress"><div class="progress-fill" id="tsProgress"></div></div>
+    </div>
+    <div id="tsResult" class="hidden"></div>
+  </div>
+
+  <!-- UI-8 Used car evaluation (FR-5.1, FR-5.2) -->
+  <div id="page-evaluate" class="page">
+    <h2>Evaluate a used car before you buy</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Car details</h3>
+        <form id="evalForm">
+          <p><b>Make</b><br><select id="eMake" class="field"></select></p>
+          <p><b>Model</b><br><input type="text" id="eModel" class="field"></p>
+          <p><b>Year</b><br><select id="eYear" class="field"></select></p>
+          <p><b>Odometer reading (km)</b><br><input type="text" id="eMileage" class="field"></p>
+          <p><b>Mileage stored in the car computer (km)</b> <i class="hint">(optional, from a PPI scan)</i><br><input type="text" id="eEcuMileage" class="field"></p>
+          <p><b>Asking price (AED)</b><br><input type="text" id="ePrice" class="field"></p>
+          <p><b>Number of previous owners</b><br><select id="eOwners" class="field">
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 or more</option></select></p>
+          <p><b>Service history</b><br>
+            <input type="radio" name="eService" value="full" checked> Full records
+            <input type="radio" name="eService" value="partial"> Partial
+            <input type="radio" name="eService" value="none"> None</p>
+          <p><b>Accident history</b><br>
+            <input type="radio" name="eAccident" value="none" checked> None reported
+            <input type="radio" name="eAccident" value="minor"> Minor
+            <input type="radio" name="eAccident" value="major"> Major</p>
+          <p><b>Photos and inspection report</b> <i class="hint">(optional, up to 10 JPG/PNG photos and 1 PDF, 10 MB each)</i><br>
+            <input type="file" id="eFiles" multiple class="field"></p>
+          <p><input type="submit" value="Evaluate car" class="btn primary" id="eSubmit"></p>
+        </form>
+        <div id="evalMsg" class="msg"></div>
+      </div>
+      <div class="card">
+        <h3>Evaluation report</h3>
+        <div id="evalResult"><p class="hint">Fill in the car details and press Evaluate car.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Saved evaluations</h3>
+      <div id="evalSaved"></div>
+    </div>
+  </div>
+
+  <!-- UI-7 Service history report and sharing (FR-6.1) -->
+  <div id="page-reports" class="page">
+    <h2>Service history report</h2>
+    <div class="row no-print">
+      <b>Vehicle:</b> <select id="repVehicle" class="field inline"></select>
+      <b>From</b> <input type="date" id="repFrom" class="field inline">
+      <b>To</b> <input type="date" id="repTo" class="field inline">
+    </div>
+    <div id="reportBody"></div>
+    <div class="card no-print">
+      <p><input type="button" value="Download as PDF" class="btn" id="repPrint">
+         <input type="button" value="Create read-only share link (7 days)" class="btn primary" id="repShare"></p>
+      <div id="shareOut"></div>
+    </div>
+  </div>
+
+  <!-- Account (FR-1.4) -->
+  <div id="page-account" class="page">
+    <h2>Your account</h2>
+    <div class="grid two">
+      <div class="card"><h3>Details</h3><div id="accountInfo"></div></div>
+      <div class="card danger-card">
+        <h3>Delete account and data</h3>
+        <p>This removes your account and every vehicle, maintenance record, diagnosis, evaluation and share link linked to it. It cannot be undone.</p>
+        <form id="deleteForm">
+          <p><input type="checkbox" id="delConfirm"> I understand that my data will be permanently deleted</p>
+          <p><input type="submit" value="Delete my account" class="btn danger" id="delBtn"></p>
+        </form>
+        <div id="deleteMsg" class="msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin (FR-6.2, FR-6.3) -->
+  <div id="page-admin" class="page">
+    <h2>Administration</h2>
+    <div class="card">
+      <h3>User accounts</h3>
+      <p><input type="text" id="adminSearch" class="field inline" placeholder="Search by name or email"></p>
+      <div id="adminUsers"></div>
+    </div>
+    <div class="card">
+      <h3>Service intervals</h3>
+      <p class="hint">Changes apply straight away, no redeployment needed.</p>
+      <div id="adminIntervals"></div>
+    </div>
+    <div class="card">
+      <h3>Warning lights</h3>
+      <div id="adminLights"></div>
+    </div>
+    <div class="card">
+      <h3>Symptom and cause knowledge base</h3>
+      <div id="adminCauses"></div>
+      <h4>Add a cause</h4>
+      <form id="causeForm">
+        <p><b>Symptom group</b><br><select id="cGroup" class="field"></select></p>
+        <p><b>Cause name</b><br><input type="text" id="cName" class="field"></p>
+        <p><b>Plain-language explanation</b><br><textarea id="cExplain" class="field" rows="2"></textarea></p>
+        <p><b>Recommended action</b><br><input type="text" id="cAction" class="field"></p>
+        <p><b>Base weight (1 to 10)</b><br><input type="text" id="cWeight" class="field" value="3"></p>
+        <p><b>Cost estimate AED (min and max)</b><br><input type="text" id="cMin" class="field half" value="100"> <input type="text" id="cMax" class="field half" value="500"></p>
+        <p><input type="submit" value="Add cause" class="btn primary"></p>
+      </form>
+      <div id="causeMsg" class="msg"></div>
+    </div>
+  </div>
+
+  <!-- Simulated notification service -->
+  <div id="page-inbox" class="page">
+    <h2>Demo email inbox</h2>
+    <p class="hint">This prototype has no mail server, so the notification service delivers emails here instead. Each email shows who it was sent to.</p>
+    <div id="inboxList"></div>
+    <p><a href="#" id="inboxBack">Back</a></p>
+  </div>
+
+  <!-- Read-only shared report (FR-6.1) -->
+  <div id="page-share" class="page">
+    <div id="shareView"></div>
+  </div>
+
+</div>
+
+<div id="footer">
+  <hr>
+  <p><i>AI CarCare Advisor gives suggestions only. It does not replace an inspection by a qualified mechanic.</i><br>
+  SWE 401 Software Engineering, Group 19, Abu Dhabi University, Fall 2026</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
