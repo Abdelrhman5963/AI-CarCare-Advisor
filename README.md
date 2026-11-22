@@ -5,7 +5,7 @@ AI-Powered web platform for vehicle maintenance tracking and troubleshooting - S
 - AI CarCare Advisor
   
 • Team members
-- Abdulrahman Naji
+- Abdulrahman Naji Ghazy
 - Saif Alzaabi
   
 • Problem
