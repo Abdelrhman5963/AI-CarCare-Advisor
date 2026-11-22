@@ -1,1 +1,572 @@
+/* AI CarCare Advisor - stylesheet
+   Selectors used: tag, class, id, descendant and a:link / a:visited / a:hover. */
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5em;
+  color: #1d2733;
+  background: #eef2f6;
+}
+
+a:link, a:visited {
+  color: #0f4c81;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  margin: 8px 0 16px 0;
+  font-size: 24px;
+  color: #0f2f4f;
+}
+
+h3 {
+  margin: 0 0 10px 0;
+  font-size: 17px;
+  color: #0f2f4f;
+}
+
+h4 {
+  margin: 18px 0 6px 0;
+}
+
+hr {
+  border: none;
+  border-top: solid 1px #d5dde6;
+}
+
+/* Top bar and navigation */
+#topbar {
+  background: #0f2f4f;
+  color: #ffffff;
+  padding: 10px 24px;
+  overflow: auto;
+}
+
+.brand {
+  float: left;
+}
+
+.brand .logo {
+  width: 42px;
+  height: 42px;
+  float: left;
+  margin-right: 10px;
+}
+
+.brand-text {
+  float: left;
+  line-height: 1.3em;
+  font-size: 14px;
+}
+
+.brand-text i {
+  color: #a9c4de;
+  font-size: 12px;
+}
+
+#nav {
+  float: left;
+  margin-left: 28px;
+  margin-top: 10px;
+}
+
+#nav a {
+  color: #dce8f3;
+  margin-right: 14px;
+  padding: 4px 2px;
+  font-size: 14px;
+}
+
+#nav a.current {
+  color: #ffffff;
+  font-weight: bold;
+  border-bottom: solid 2px #2bb673;
+}
+
+#whoami {
+  float: right;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #a9c4de;
+}
+
+#main {
+  padding: 20px 24px;
+}
+
+#footer {
+  padding: 0 24px 20px 24px;
+  font-size: 12px;
+  color: #5b6b7c;
+}
+
+/* Pages: JavaScript shows one at a time */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Cards and layout */
+.card {
+  background: #ffffff;
+  border: solid 1px #d5dde6;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.card.narrow {
+  width: 420px;
+  margin: 30px auto;
+}
+
+.logo-big {
+  width: 72px;
+  height: 72px;
+}
+
+.grid {
+  overflow: auto;
+}
+
+.grid .card {
+  float: left;
+  width: 23.5%;
+  margin-right: 2%;
+  min-height: 230px;
+}
+
+.grid .card:last-child {
+  margin-right: 0;
+}
+
+.grid.two .card {
+  width: 49%;
+  min-height: 0;
+}
+
+.row {
+  margin-bottom: 14px;
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  padding: 7px 9px;
+  border: solid 1px #b7c3d0;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+.field.inline {
+  width: auto;
+  display: inline;
+  margin: 0 8px 0 4px;
+}
+
+.field.half {
+  width: 48%;
+}
+
+#vMakeSearch {
+  margin-bottom: 6px;
+}
+
+#vManualRow .field {
+  margin-bottom: 6px;
+}
+
+.hint {
+  color: #6a7a8b;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+/* Buttons are input type="button" or type="submit" */
+.btn {
+  padding: 8px 14px;
+  border: solid 1px #9fb2c6;
+  border-radius: 5px;
+  background: #f4f7fa;
+  color: #0f2f4f;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 2px 4px 2px 0;
+}
+
+.btn:hover {
+  background: #e3ebf3;
+}
+
+.btn.primary {
+  background: #0f4c81;
+  border-color: #0f4c81;
+  color: #ffffff;
+}
+
+.btn.primary:hover {
+  background: #0b3a63;
+}
+
+.btn.danger {
+  background: #b42318;
+  border-color: #b42318;
+  color: #ffffff;
+}
+
+.btn.small {
+  padding: 3px 9px;
+  font-size: 12px;
+}
+
+.btn.wide {
+  width: 100%;
+}
+
+/* Messages */
+.msg {
+  margin-top: 8px;
+}
+
+.msg .ok, .msg.ok {
+  color: #146c43;
+  background: #e7f6ee;
+  border-left: solid 4px #2bb673;
+  padding: 8px 10px;
+}
+
+.msg .err, .msg.err {
+  color: #8a1c13;
+  background: #fdecea;
+  border-left: solid 4px #b42318;
+  padding: 8px 10px;
+}
+
+.msg.warn, .msg .warn {
+  color: #7a4d00;
+  background: #fff4dc;
+  border-left: solid 4px #e3a008;
+  padding: 8px 10px;
+}
+
+/* Lists of items built by JavaScript */
+.item {
+  border: solid 1px #e1e7ee;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: #fbfcfd;
+}
+
+.item .meta {
+  color: #6a7a8b;
+  font-size: 12px;
+}
+
+.kv span {
+  display: block;
+}
+
+/* Status badges */
+.badge {
+  display: inline;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.badge.high, .badge.overdue {
+  background: #fdecea;
+  color: #b42318;
+}
+
+.badge.medium, .badge.soon {
+  background: #fff4dc;
+  color: #8a5a00;
+}
+
+.badge.low, .badge.upcoming, .badge.done {
+  background: #e7f6ee;
+  color: #146c43;
+}
+
+.badge.snoozed, .badge.neutral {
+  background: #e8edf3;
+  color: #44546a;
+}
+
+.overdue-item {
+  border-left: solid 5px #b42318;
+}
+
+/* Tabs */
+.tabs {
+  margin-bottom: 10px;
+  border-bottom: solid 1px #d5dde6;
+}
+
+.tab {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #44546a;
+}
+
+.tab.active {
+  color: #0f4c81;
+  font-weight: bold;
+  border-bottom: solid 3px #0f4c81;
+}
+
+/* Example prompt chips */
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 4px 6px 0 0;
+  border: solid 1px #b7c3d0;
+  border-radius: 14px;
+  background: #f4f7fa;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: #dfe9f3;
+}
+
+.safety-pane {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: #fff4dc;
+  border-left: solid 4px #e3a008;
+  font-size: 13px;
+}
+
+/* Follow-up questions */
+.question {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: dashed 1px #e1e7ee;
+}
+
+.question span.opt {
+  display: inline-block;
+  margin-right: 14px;
+}
+
+/* Progress / loading bar */
+.progress {
+  height: 12px;
+  background: #e3ebf3;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 12px;
+  width: 0%;
+  background: #0f4c81;
+}
+
+.progress-fill.green {
+  background: #2bb673;
+}
+
+/* Diagnosis result (UI-5) */
+.urgency-box {
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.urgency-box.High {
+  background: #b42318;
+}
+
+.urgency-box.Medium {
+  background: #c27c0e;
+}
+
+.urgency-box.Low {
+  background: #146c43;
+}
+
+.urgency-box h3 {
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.safety-warning {
+  border: solid 3px #b42318;
+  background: #fdecea;
+  color: #8a1c13;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.disclaimer {
+  border: dashed 1px #9fb2c6;
+  background: #f4f7fa;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.cause {
+  border: solid 1px #e1e7ee;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.bar {
+  height: 8px;
+  background: #e3ebf3;
+  border-radius: 4px;
+  margin: 4px 0 6px 0;
+}
+
+.bar div {
+  height: 8px;
+  border-radius: 4px;
+  background: #0f4c81;
+}
+
+/* Evaluation (UI-8) */
+.score {
+  font-size: 40px;
+  font-weight: bold;
+  color: #0f4c81;
+  line-height: 1.1em;
+}
+
+.check-row {
+  padding: 6px 0;
+  border-bottom: dashed 1px #e1e7ee;
+}
+
+.check-row select {
+  float: right;
+}
+
+/* Report chart (UI-7) */
+.chart {
+  height: 170px;
+  border-bottom: solid 1px #9fb2c6;
+  padding-top: 10px;
+  overflow: hidden;
+}
+
+.chart-col {
+  float: left;
+  width: 60px;
+  height: 160px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.chart-bar {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  width: 36px;
+  background: #0f4c81;
+  border-radius: 4px 4px 0 0;
+}
+
+.chart-val {
+  position: absolute;
+  left: 0;
+  width: 60px;
+  text-align: center;
+  font-size: 11px;
+  color: #44546a;
+}
+
+.chart-labels {
+  overflow: hidden;
+}
+
+.chart-labels span {
+  float: left;
+  width: 60px;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 11px;
+  color: #6a7a8b;
+}
+
+.stats span {
+  display: inline-block;
+  margin-right: 28px;
+}
+
+.stats b {
+  display: block;
+  font-size: 22px;
+  color: #0f4c81;
+}
+
+.share-link {
+  word-wrap: break-word;
+  background: #f4f7fa;
+  padding: 8px;
+  border: solid 1px #d5dde6;
+  font-size: 12px;
+}
+
+.danger-card {
+  border-color: #f0b4ae;
+}
+
+/* Emails in the demo inbox */
+.email {
+  background: #ffffff;
+  border: solid 1px #d5dde6;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.email .meta {
+  font-size: 12px;
+  color: #6a7a8b;
+}
+
+ul.clean {
+  list-style-type: square;
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+@media print {
+  #topbar, #footer, .no-print {
+    display: none;
+  }
+  body {
+    background: #ffffff;
+  }
+}
